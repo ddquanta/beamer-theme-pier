@@ -1,0 +1,168 @@
+% Set document class. 'c' and 't' refers to center and top vertical alignment, respectively.
+\documentclass[11pt,aspectratio=169, c]{beamer} % 16:9 version
+%\documentclass[11pt,aspectratio=43, t]{beamer} % 4:3 version
+% \documentclass[11pt,t]{beamer} % default, 4:3 version
+
+
+
+% packages
+\usepackage[english]{babel}
+%\usepackage{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\usepackage{bbold}
+\usepackage{float}
+\usepackage{subcaption}
+%\usepackage{hyperref}
+\usepackage[backend=biber,style=apa,citestyle=authoryear-comp]{biblatex}
+%\usepackage{natbib}
+\DeclareMathOperator{\E}{\mathbb{E}}
+
+%\addbibresource{literature.bib}   % bibtex file
+\usepackage[absolute,overlay]{textpos}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{multirow}
+\usepackage{pgffor}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\BeforeBeginEnvironment{frame}{%
+	\setbeamertemplate{background}{
+		\begin{tikzpicture}
+			\useasboundingbox (0,0) rectangle(\paperwidth, \paperheight);
+			\node[inner sep=0,outer sep=0, anchor=south east] (fold) at (\paperwidth, 0) {\includegraphics[width=1.2cm]{resources/fold.pdf}};
+		\end{tikzpicture}
+	}
+	\setbeamertemplate{frametitle}[PIER]%
+	\setbeamertemplate{footline}[PIER]%
+	%\setbeamertemplate{footline}{\hfill\usebeamercolor{white}\insertframenumber{}}
+	\normalsize%
+	\normalcolor%
+}
+
+\makeatletter
+
+\define@key{beamerframe}{paper}[true]{%
+	\setbeamertemplate{background}{
+		\begin{tikzpicture}
+			\usebeamercolor{palette primary}
+			\useasboundingbox (0,0) rectangle (\paperwidth, \paperheight);
+			\fill[fill=fg] (0, 0) rectangle (\paperwidth, \paperheight);
+			\fill[white] (0.5, 0.5) rectangle (\paperwidth - 0.5cm, \paperheight - 0.5cm);
+		\end{tikzpicture}
+	}
+	\setbeamertemplate{frametitle}{
+		\begin{beamercolorbox}[wd=\paperwidth, ht=1.5cm, center]{frametitle}
+			\insertframetitle
+		\end{beamercolorbox}
+	}
+	\setbeamertemplate{footline}{}
+}
+
+\makeatother
+
+\setbeamertemplate{page number in head/foot}[framenumber]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usetheme{PIER}
+%\usetheme{Singapore}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Title page.
+
+\title[V2]{Template Example ver. 2}
+\author[Mini author list]{Don Tawanpitak}
+\date{\today}
+
+\usetheme{PIER}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+	\begin{frame}[paper]
+		
+		\titlepage
+		
+		\begin{center}
+			\includegraphics[height=1.2cm]{resources/pier-logo.pdf}
+		\end{center}
+		
+	\end{frame}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+% Comment this part if a section page is not needed.
+	
+\AtBeginSection[]{
+	\begin{frame}
+		
+		\frametitle{\mbox{}}
+		\vfill
+		\centering
+		\begin{beamercolorbox}[
+			wd  = \paperwidth,
+			sep = 1.2ex, center, shadow = true, rounded = true]{title}
+			\usebeamerfont{title}\huge\insertsectionhead
+		\end{beamercolorbox}
+		\vfill
+		
+	\end{frame}
+}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	% This part set the rules for spacing between paragraphs.
+	\setlength{\parskip}{2em}
+	
+	
+	
+	% This part set the rules for spacing between items.
+	\BeforeBeginEnvironment{itemize}{
+		\par
+		\vspace*{-\parskip}
+		\vspace{0.2em}
+	}
+	
+	\AtBeginEnvironment{itemize}{
+		\setlength{\itemsep}{0.2em}
+	}
+	
+	
+	
+	% This part set the rules for spacing between items.
+	\BeforeBeginEnvironment{enumerate}{
+		\par
+		\vspace*{-\parskip}
+		\vspace{0.2em}
+	}
+	
+	\AtBeginEnvironment{enumerate}{
+		\setlength{\itemsep}{0.2em}
+	}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\section{Introduction}
+
+	\begin{frame}{Motivation}
+		
+		This .tex example is based on P'Art's original template but with some modifications.
+		
+		First, the mini author list (bottom left) can now be as long as needed. The footline will auto-adjust its width accordingly. The same applies for the section part of the footline.
+		
+		Second, the section page, i.e., page 2, will now auto adjust text position to the center. If that page is not needed, then comment that part in the .tex file.
+		
+		Third, a new part is added to the .tex file for setting space between, e.g., paragraphs and items. This can be adjusted, or entirely commented, per the author's preferences.
+		
+	\end{frame}
+
+
+
+\end{document}
