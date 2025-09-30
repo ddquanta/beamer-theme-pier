@@ -17,21 +17,52 @@
 }
 
 % Footline
+\newlength{\pnumwd}
+\setlength{\pnumwd}{.05\paperwidth} 
+\newlength{\sepwd}
+\setlength{\sepwd}{1.0ex} 
+\newlength{\authorwd}
+\newlength{\authpadL}
+\newlength{\authpadR}
+\setlength{\authpadL}{2.0ex}
+\setlength{\authpadR}{1.0ex}
+
 \defbeamertemplate*{footline}{PIER}{%
   \leavevmode%
+  % Measure author (with padding).
+  \settowidth{\authorwd}{%
+    \usebeamerfont{author in head/foot}%
+    \hspace*{\authpadL}%
+    \insertshortauthor\expandafter\ifblank\expandafter{\beamer@shortinstitute}{}{~~(\insertshortinstitute)}%
+    \hspace*{\authpadR}%
+  }%
+  % Remaining width for section.
+  \dimen0=\dimexpr \paperwidth - \pnumwd - \authorwd - \sepwd \relax
+  \ifdim\dimen0<1pt \dimen0=1pt\fi
+
   \hbox{%
-  \begin{beamercolorbox}[wd=.25\paperwidth, ht=2.25ex, dp=1ex, right]{author in head/foot}%
-    \usebeamerfont{author in head/foot}\insertshortauthor\expandafter\ifblank\expandafter{\beamer@shortinstitute}{}{~~(\insertshortinstitute)}
-    \begin{beamercolorbox}[wd=1ex, ht=2.25ex, dp=1ex]{sep}%
+    % (1) Author box.
+    \begin{beamercolorbox}[wd=\authorwd, ht=2.25ex, dp=1ex, left]{author in head/foot}%
+      \usebeamerfont{author in head/foot}%
+      \hspace*{\authpadL}%
+      \insertshortauthor\expandafter\ifblank\expandafter{\beamer@shortinstitute}{}{~~(\insertshortinstitute)}%
+      \hspace*{\authpadR}%
     \end{beamercolorbox}%
-  \end{beamercolorbox}%
-  \begin{beamercolorbox}[wd=.7\paperwidth, ht=2.25ex, dp=1ex, left]{title in head/foot}%
-    \usebeamerfont{title in head/foot}\hspace*{1ex}\insertsection
-  \end{beamercolorbox}%
-  \begin{beamercolorbox}[wd=.05\paperwidth, ht=2.25ex, dp=1ex, right]{page number in head/foot}%
-    \usebeamercolor[fg]{page number in head/foot}\usebeamerfont{page number in head/foot}\usebeamertemplate{page number in head/foot}\hspace*{2ex} 
-  \end{beamercolorbox}}%
-  \vskip0pt%
+    % Orange separator.
+    \begin{beamercolorbox}[wd=\sepwd, ht=2.25ex, dp=1ex]{sep}\end{beamercolorbox}%
+    % (2) Section box, fills the remaining space.
+    \begin{beamercolorbox}[wd=\dimen0, ht=2.25ex, dp=1ex, left]{title in head/foot}%
+      \usebeamerfont{title in head/foot}\hspace*{1ex}\insertsection
+    \end{beamercolorbox}%
+    % (3) Page box, fixed width.
+    \begin{beamercolorbox}[wd=\pnumwd, ht=2.25ex, dp=1ex, left]{page number in head/foot}%
+      \hbox to \linewidth{%
+        \hfil{\usebeamerfont{page number in head/foot}\usebeamercolor[fg]{page number in head/foot}%
+        \usebeamertemplate{page number in head/foot}}\hspace*{2ex}%
+      }%
+    \end{beamercolorbox}%
+  }%
+  \vskip 0pt%
 }
 
 \mode<all>
